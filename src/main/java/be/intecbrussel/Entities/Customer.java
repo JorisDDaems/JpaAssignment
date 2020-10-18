@@ -1,8 +1,6 @@
 package be.intecbrussel.Entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
@@ -10,6 +8,7 @@ import java.math.BigDecimal;
 public class Customer {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int customerNumber;
     private String customerName;
     private String contactLastName;

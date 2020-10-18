@@ -1,27 +1,33 @@
 package be.intecbrussel.Entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
-@Table(name = "employees")
-public class Employee {
+@Table(name = "employees", schema = "classicmodels")
+@Embeddable
+public class Employee implements Serializable {
 
     @Id
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@JoinColumn(name = "employeeNumber")
     private int employeeNumber;
     private String lastName;
     private String firstName;
     private String extension;
     private String email;
     private String jobTitle;
+
+
     private String officeCode;
+
     private int reportsTo;
 
     public Employee(){}
 
-    public Employee(int empolyeeNumber, String lastName, String firstName, String extension, String email, String jobTitle, String officeCode, int reportsTo) {
-        this.employeeNumber = empolyeeNumber;
+    public Employee(int employeeNumber, String lastName, String firstName, String extension, String email, String jobTitle, String officeCode, int reportsTo) {
+        this.employeeNumber = employeeNumber;
         this.lastName = lastName;
         this.firstName = firstName;
         this.extension = extension;
@@ -31,13 +37,11 @@ public class Employee {
         this.reportsTo = reportsTo;
     }
 
-    public int getEmpolyeeNumber() {
+    public int getEmployeeNumber() {
         return employeeNumber;
     }
 
-    public void setEmpolyeeNumber(int empolyeeNumber) {
-        this.employeeNumber = empolyeeNumber;
-    }
+    public void setEmployeeNumber(int employeeNumber){this.employeeNumber = employeeNumber;}
 
     public String getLastName() {
         return lastName;
@@ -96,9 +100,29 @@ public class Employee {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return employeeNumber == employee.employeeNumber &&
+                reportsTo == employee.reportsTo &&
+                Objects.equals(lastName, employee.lastName) &&
+                Objects.equals(firstName, employee.firstName) &&
+                Objects.equals(extension, employee.extension) &&
+                Objects.equals(email, employee.email) &&
+                Objects.equals(jobTitle, employee.jobTitle) &&
+                Objects.equals(officeCode, employee.officeCode);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(employeeNumber, lastName, firstName, extension, email, jobTitle, officeCode, reportsTo);
+    }
+
+    @Override
     public String toString() {
         return "Employee{" +
-                "empolyeeNumber=" + employeeNumber +
+                "employeeNumber=" + employeeNumber +
                 ", lastName='" + lastName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", extension='" + extension + '\'' +
