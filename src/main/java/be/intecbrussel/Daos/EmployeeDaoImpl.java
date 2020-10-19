@@ -18,6 +18,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
             em = emf.createEntityManager();
 
             EntityTransaction tx = em.getTransaction();
+            em.find(Employee.class, employee.getEmployeeNumber());
             tx.begin();
             em.persist(employee);
             tx.commit();
@@ -60,7 +61,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
             em = emf.createEntityManager();
             EntityTransaction transaction = em.getTransaction();
             transaction.begin();
-            Employee managedEmployee = em.merge(employee);
+            em.merge(employee);
 
             transaction.commit();
         } catch (Exception e){
@@ -73,7 +74,22 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public Employee deleteEmployee(Employee employee) {
-        return null;
+    public void deleteEmployee(Employee employee) {
+        EntityManager em = null;
+        try{
+            em = emf.createEntityManager();
+            EntityTransaction transaction = em.getTransaction();
+            em.find(Employee.class, employee.getEmployeeNumber());
+            transaction.begin();
+            em.remove(employee);
+
+            transaction.commit();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
     }
 }

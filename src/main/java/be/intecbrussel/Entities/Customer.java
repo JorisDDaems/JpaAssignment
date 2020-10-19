@@ -21,14 +21,15 @@ public class Customer {
     private String postalCode;
     private String country;
     // is this a class from another thing?
-    private int salesRepEmployeeNumber;
+    @OneToOne
+    private Employee salesRepEmployeeNumber;
     private BigDecimal creditLimit;
 
     public Customer(){}
 
     public Customer(int customerNumber, String customerName, String contactLastName, String contactFirstName,
                     String phone, String addressLine1, String addressLine2, String city, String state, String postalCode,
-                    String country, int salesRepEmployeeNumber, BigDecimal creditLimit) {
+                    String country, Employee salesRepEmployeeNumber, BigDecimal creditLimit) {
         this.customerNumber = customerNumber;
         this.customerName = customerName;
         this.contactLastName = contactLastName;
@@ -132,11 +133,11 @@ public class Customer {
         this.country = country;
     }
 
-    public int getSalesRepEmployeeNumber() {
+    public Employee getSalesRepEmployeeNumber() {
         return salesRepEmployeeNumber;
     }
 
-    public void setSalesRepEmployeeNumber(int salesRepEmployeeNumber) {
+    public void setSalesRepEmployeeNumber(Employee salesRepEmployeeNumber) {
         this.salesRepEmployeeNumber = salesRepEmployeeNumber;
     }
 
