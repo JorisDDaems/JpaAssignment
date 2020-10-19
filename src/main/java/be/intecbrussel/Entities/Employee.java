@@ -1,17 +1,16 @@
 package be.intecbrussel.Entities;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "employees", schema = "classicmodels")
-@Embeddable
-public class Employee implements Serializable {
+
+public class Employee {
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@JoinColumn(name = "employeeNumber")
     private int employeeNumber;
     private String lastName;
     private String firstName;
@@ -20,13 +19,18 @@ public class Employee implements Serializable {
     private String jobTitle;
 
 
-    private String officeCode;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "officeCode")
+    private Office officeCode;
 
-    private int reportsTo;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "reportsTo")
+
+    private Employee reportsTo;
 
     public Employee(){}
 
-    public Employee(int employeeNumber, String lastName, String firstName, String extension, String email, String jobTitle, String officeCode, int reportsTo) {
+    public Employee(int employeeNumber, String lastName, String firstName, String extension, String email, String jobTitle, Office officeCode) {
         this.employeeNumber = employeeNumber;
         this.lastName = lastName;
         this.firstName = firstName;
@@ -34,7 +38,7 @@ public class Employee implements Serializable {
         this.email = email;
         this.jobTitle = jobTitle;
         this.officeCode = officeCode;
-        this.reportsTo = reportsTo;
+        //this.reportsTo = reportsTo;
     }
 
     public int getEmployeeNumber() {
@@ -83,19 +87,19 @@ public class Employee implements Serializable {
         this.jobTitle = jobTitle;
     }
 
-    public String getOfficeCode() {
+    public Office getOfficeCode() {
         return officeCode;
     }
 
-    public void setOfficeCode(String officeCode) {
+    public void setOfficeCode(Office officeCode) {
         this.officeCode = officeCode;
     }
 
-    public int getReportsTo() {
+    public Employee getReportsTo() {
         return reportsTo;
     }
 
-    public void setReportsTo(int reportsTo) {
+    public void setReportsTo(Employee reportsTo) {
         this.reportsTo = reportsTo;
     }
 
@@ -128,7 +132,7 @@ public class Employee implements Serializable {
                 ", extension='" + extension + '\'' +
                 ", email='" + email + '\'' +
                 ", jobTitle='" + jobTitle + '\'' +
-                ", officeCode='" + officeCode + '\'' +
+                ", officeCode=" + officeCode +
                 ", reportsTo=" + reportsTo +
                 '}';
     }

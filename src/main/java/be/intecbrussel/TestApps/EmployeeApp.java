@@ -8,8 +8,10 @@ import be.intecbrussel.Entities.Office;
 public class EmployeeApp {
     public static void main(String[] args) {
 
-
-        Employee employee = new Employee(1000,"Baetens", "Jeffrey", "jo", "jeffrey@gmail.com", "hr", "kantoor" , 45);
+        Office office = new Office("officeCode", "city", "phone",
+                "addressLine1", "addressLine2",
+                "state", "country", "postalCode", "territory");
+        Employee employee = new Employee(1000,"Baetens", "Jeffrey", "jo", "jeffrey@gmail.com", "hr", office   );
 
         EmployeeDao employeeDao = new EmployeeDaoImpl();
 
