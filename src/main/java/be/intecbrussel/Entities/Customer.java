@@ -1,5 +1,7 @@
 package be.intecbrussel.Entities;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -21,7 +23,7 @@ public class Customer {
     private String postalCode;
     private String country;
     // is this a class from another thing?
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Employee salesRepEmployeeNumber;
     private BigDecimal creditLimit;
 

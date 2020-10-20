@@ -1,81 +1,87 @@
 package be.intecbrussel.Daos;
 
-import be.intecbrussel.Entities.Employee;
+import be.intecbrussel.Entities.Office;
 import be.intecbrussel.Utils.EntityManagerFactoryProvider;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 import javax.persistence.*;
 
-public class EmployeeDaoImpl implements EmployeeDao {
+
+public class OfficeDaoImpl implements OfficeDao {
+
 
     private EntityManagerFactory emf = EntityManagerFactoryProvider.getInstance().getEmf();
     private EntityManager em = null;
 
     @Override
-    public void createEmployee(Employee employee) {
+    public void createOffice(Office office) {
 
         try {
             em = emf.createEntityManager();
             EntityTransaction tx = em.getTransaction();
             tx.begin();
-            em.persist(employee);
+            em.persist(office);
             tx.commit();
-            System.out.println("Employee saved");
-        } catch (Exception e){
+            System.out.println("Office saved");
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (em != null){
+            if (em != null) {
                 em.close();
             }
         }
     }
 
     @Override
-    public Employee readEmployee(String employeeLastName) {
-        Employee employee = null;
-        try{
+    public Office readOffice(String officeCode) {
+        Office office = null;
+        try {
             em = emf.createEntityManager();
-            TypedQuery<Employee> query = em.createQuery("SELECT b from Employee b where b.lastName =?1", Employee.class);
-            query.setParameter(1, employeeLastName);
-            employee = query.getSingleResult();
-        } catch (Exception e){
+            TypedQuery<Office> query = em.createQuery("SELECT b from Office b where b.officeCode =?1", Office.class);
+            query.setParameter(1, officeCode);
+            office = query.getSingleResult();
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (em != null){
+            if (em != null) {
                 em.close();
             }
         }
-        return employee;
+        return office;
     }
 
     @Override
-    public void updateEmployee(Employee employee) {
-        try{
+    public void updateOffice(Office office) {
+        try {
             em = emf.createEntityManager();
             EntityTransaction transaction = em.getTransaction();
             transaction.begin();
-            em.merge(employee);
+            em.merge(office);
             transaction.commit();
-            System.out.println("employee updated");
-        } catch (Exception e){
+            System.out.println("Office updated");
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (em != null){
+            if (em != null) {
                 em.close();
             }
         }
     }
 
     @Override
-    public void deleteEmployee(Employee employee) {
-        try{
+    public void deleteOffice(Office office) {
+        try {
             em = emf.createEntityManager();
             EntityTransaction transaction = em.getTransaction();
-            Employee empl = em.find(Employee.class, employee.getEmployeeNumber());
+            Office office1 = em.find(Office.class, office.getOfficeCode());
             transaction.begin();
-            em.remove(empl);
+            em.remove(office1);
             transaction.commit();
-            System.out.println("employee removed");
-        } catch (Exception e){
+            System.out.println("Office removed");
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             if (em != null) {

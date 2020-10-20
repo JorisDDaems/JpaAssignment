@@ -19,25 +19,25 @@ public class Employee {
     private String jobTitle;
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "officeCode")
     private Office officeCode;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "reportsTo")
 
     private Employee reportsTo;
 
     public Employee(){}
 
-    public Employee(int employeeNumber, String lastName, String firstName, String extension, String email, String jobTitle, Office officeCode) {
+    public Employee(int employeeNumber, String lastName, String firstName, String extension, String email, String jobTitle) {
         this.employeeNumber = employeeNumber;
         this.lastName = lastName;
         this.firstName = firstName;
         this.extension = extension;
         this.email = email;
         this.jobTitle = jobTitle;
-        this.officeCode = officeCode;
+        //this.officeCode = officeCode;
         //this.reportsTo = reportsTo;
     }
 
