@@ -9,6 +9,7 @@ public class CustomerApp {
     public static void main(String[] args) {
 
         Employee employee = new Employee();
+        employee.setEmployeeNumber(56);
 
         Customer customer = new Customer();
         customer.setCustomerNumber(555);

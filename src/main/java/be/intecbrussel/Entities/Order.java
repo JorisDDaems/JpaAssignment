@@ -19,7 +19,7 @@ public class Order {
     private TextType comments;
 
     @ManyToOne
-    private Customer costumerNumber;
+    private Customer customerNumber;
 
     public int getOrderNumber() {
         return orderNumber;
@@ -70,11 +70,11 @@ public class Order {
     }
 
     public Customer getCostumerNumber() {
-        return costumerNumber;
+        return customerNumber;
     }
 
     public void setCostumerNumber(Customer costumerNumber) {
-        this.costumerNumber = costumerNumber;
+        this.customerNumber = costumerNumber;
     }
 
     @Override
@@ -86,7 +86,7 @@ public class Order {
                 ", shippedDate=" + shippedDate +
                 ", status='" + status + '\'' +
                 ", comments=" + comments +
-                ", costumerNumber=" + costumerNumber +
+                ", costumerNumber=" + customerNumber +
                 '}';
     }
 }
